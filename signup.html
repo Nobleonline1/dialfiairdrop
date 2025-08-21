@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DialFi - Register</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background-color: var(--background-dark);
+            }
+            .signup-container {
+                background-color: var(--card-background);
+                padding: 40px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                width: 100%;
+                max-width: 450px; /* Slightly wider for more inputs */
+                text-align: center;
+            }
+            .signup-container h2 {
+                color: var(--secondary-color);
+                margin-bottom: 30px;
+                font-size: 2em;
+            }
+            .signup-container label {
+                display: block;
+                text-align: left;
+                margin-bottom: 8px;
+                color: var(--text-color-primary);
+                font-weight: 600;
+            }
+            .signup-container input[type="text"],
+            .signup-container input[type="email"],
+            .signup-container input[type="password"] {
+                width: calc(100% - 30px);
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid #444;
+                border-radius: 8px;
+                font-size: 1em;
+                background-color: var(--background-light);
+                color: var(--text-color-primary);
+                box-sizing: border-box;
+            }
+            .signup-container .btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+            .signup-container .small-text {
+                margin-top: 20px;
+                font-size: 0.9em;
+                color: var(--text-color-secondary);
+            }
+            .signup-container .small-text a {
+                color: var(--secondary-color);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+            .signup-container .small-text a:hover {
+                color: var(--accent-color);
+            }
+            /* NEW: Style for resend link */
+            .resend-link-container {
+                margin-top: 15px;
+                font-size: 0.9em;
+                color: var(--text-color-secondary);
+            }
+            .resend-link-container a {
+                color: var(--secondary-color);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+            .resend-link-container a:hover {
+                color: var(--accent-color);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="signup-container">
+            <div id="messageBox">
+                <p id="messageText"></p>
+            </div>
+            <h2>Join DialFi</h2>
+            <h3>Create Your Account</h3>
+            <label for="register-username">Username:</label>
+            <input
+                type="text"
+                id="register-username"
+                placeholder="Choose a username"
+            />
+            <label for="register-email">Email:</label>
+            <input
+                type="email"
+                id="register-email"
+                placeholder="Your email address"
+            />
+            <label for="register-password">Password:</label>
+            <input
+                type="password"
+                id="register-password"
+                placeholder="Choose a strong password"
+            />
+
+            <label for="register-referral-code"
+                >Referral Code (Optional):</label
+            >
+
+            <input
+                type="text"
+                id="register-referral-code"
+                placeholder="Enter referral code if you have one"
+            />
+
+            <button class="btn secondary-btn" id="registerBtn">Register</button>
+
+            <p class="small-text">
+                Already have an account?
+                <a href="login.html" id="showLoginForm">Login here</a>
+            </p>
+            <!-- NEW: Resend Verification Link -->
+            <div class="resend-link-container">
+                <p>
+                    Did not receive verification email?
+                    <a href="#" id="resendVerificationLink">Resend link</a>
+                </p>
+            </div>
+            <!-- END NEW -->
+        </div>
+
+        <script src="shared.js"></script>
+        <script src="signup.js"></script>
+    </body>
+</html>

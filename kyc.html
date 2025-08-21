@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DialFi - KYC Verification</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Link to your project's main stylesheet for consistent theme -->
+        <link rel="stylesheet" href="/style.css" />
+        <style>
+            /* Ensure CSS variables are available, fallback if style.css isn't loaded correctly */
+            :root {
+                --background-dark: #121212;
+                --card-background: #1e1e1e;
+                --text-color-primary: #ffffff;
+                --text-color-secondary: #aaaaaa;
+                --primary-color: #6366f1; /* A shade of purple */
+                --secondary-color: #a855f7; /* Another shade of purple/violet */
+                --accent-color: #8b5cf6; /* A slightly different accent purple */
+                --border-radius: 12px;
+                --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center; /* Center content vertically */
+                align-items: center; /* Center content horizontally */
+                min-height: 100vh; /* Full viewport height */
+                background-color: var(--background-dark);
+                font-family: "Poppins", sans-serif;
+                color: var(--text-color-primary);
+                margin: 0;
+                padding: 20px; /* Overall page padding */
+                box-sizing: border-box;
+                text-align: center; /* Center text within body for general alignment */
+            }
+
+            .kyc-content-card {
+                background-color: var(--card-background);
+                padding: 30px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                max-width: 600px; /* Max width for readability */
+                width: 100%; /* Ensures it's responsive */
+                box-sizing: border-box;
+            }
+
+            .kyc-content-card h1 {
+                font-size: 3em;
+                color: var(--secondary-color);
+                margin-bottom: 15px;
+                font-weight: 700;
+            }
+
+            .kyc-content-card h2 {
+                font-size: 1.5em;
+                color: var(--primary-color);
+                margin-bottom: 20px;
+                font-weight: 600;
+            }
+
+            .kyc-content-card h3 {
+                font-size: 1.1em;
+                color: var(--text-color-secondary);
+                margin-top: 25px;
+                line-height: 1.8;
+            }
+
+            .kyc-image-container {
+                margin-top: 30px;
+                width: 100%;
+                display: flex;
+                justify-content: center; /* Center image horizontally */
+            }
+
+            .kyc-image-container img {
+                max-width: 100%; /* Ensure image is responsive */
+                height: auto;
+                border-radius: var(--border-radius); /* Apply border-radius to image */
+                box-shadow: var(--shadow); /* Optional: add shadow to image */
+            }
+
+            /* Responsive Adjustments */
+            @media (max-width: 768px) {
+                .kyc-content-card {
+                    padding: 25px;
+                }
+                .kyc-content-card h1 {
+                    font-size: 2.5em;
+                }
+                .kyc-content-card h2 {
+                    font-size: 1.3em;
+                }
+                .kyc-content-card h3 {
+                    font-size: 1em;
+                }
+            }
+
+            @media (max-width: 480px) {
+                body {
+                    padding: 15px;
+                }
+                .kyc-content-card {
+                    padding: 20px;
+                    border-radius: 10px;
+                }
+                .kyc-content-card h1 {
+                    font-size: 2em;
+                }
+                .kyc-content-card h2 {
+                    font-size: 1.1em;
+                }
+                .kyc-content-card h3 {
+                    font-size: 0.9em;
+                }
+                .kyc-image-container {
+                    margin-top: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="kyc-content-card">
+            <h1>COMING SOON!</h1>
+            <h2>We are working on this feature. Please check back later.</h2>
+            <p>
+                <h3>
+                  <span style="color: red">WARNING!!</span>Users cannot own more than one profile in DialFi protocol airdrop, as
+                    it will lead to disqualification and token burning!
+                </h3>
+            </p>
+            <div class="kyc-image-container">
+                <img src="kycimg1.jpg" alt="KYC Coming Soon" />
+            </div>
+        </div>
+    </body>
+</html>

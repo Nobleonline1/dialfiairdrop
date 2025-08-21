@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DialFi - Forgot Username</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-dark);
+        }
+        .form-container {
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .form-container h2 {
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .form-container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: var(--text-color-primary);
+            font-weight: 600;
+        }
+        .form-container input[type="email"] {
+            width: calc(100% - 30px);
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: var(--background-light);
+            color: var(--text-color-primary);
+            box-sizing: border-box;
+        }
+        .form-container .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .form-container .small-text {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: var(--text-color-secondary);
+        }
+        .form-container .small-text a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .form-container .small-text a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Forgot Username?</h2>
+        <p>Enter your email address below to receive your username.</p>
+        <label for="forgot-username-email">Email:</label>
+        <input type="email" id="forgot-username-email" placeholder="Your email address">
+        <button class="btn primary-btn" id="sendUsernameBtn">Send Username</button>
+        <p class="small-text"><a href="login.html" id="backToLoginLink">Back to Login</a></p>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="forgot_username.js"></script>
+</body>
+</html>

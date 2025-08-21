@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DialFi</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/style.css" />
+        <!-- Font Awesome for Social Media Icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        />
+        <style>
+            /* Custom styles for the social media footer */
+            .social-links {
+                display: flex;
+                justify-content: center; /* Center the icons horizontally */
+                gap: 20px; /* Space between icons */
+                margin-bottom: 20px; /* Space between social links and copyright */
+                padding: 10px 0;
+            }
+
+            .social-links a {
+                color: var(
+                    --text-color-primary
+                ); /* Use your primary text color */
+                font-size: 1.8em; /* Adjust icon size */
+                transition:
+                    color 0.3s ease,
+                    transform 0.2s ease;
+            }
+
+            .social-links a:hover {
+                color: var(--primary-color); /* Hover color */
+                transform: translateY(-3px); /* Slight lift effect on hover */
+            }
+
+            /* Responsive adjustments for social links */
+            @media (max-width: 480px) {
+                .social-links {
+                    gap: 15px; /* Slightly less space on small screens */
+                    font-size: 1.5em; /* Smaller icons for mobile */
+                }
+                .social-links a {
+                    font-size: 1.5em; /* Smaller icons for mobile */
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Message box for displaying errors or success messages -->
+        <div id="messageBox" style="display: none">
+            <p id="messageText"></p>
+        </div>
+
+        <div class="container">
+            <header style="background-image: url(&quot;/divimage2.jpg&quot;)">
+                <p>
+                    <button class="menu-button" id="menuButton">&#9776;</button>
+                </p>
+                <div class="logo">
+                    <img
+                        src="/difiimg1.jpg"
+                        alt="DiFi Token Logo"
+                        id="token-logo"
+                    />
+                    <h1 id="dialfiHeader">DialFi Protocol</h1>
+                </div>
+                <div class="header-info">
+                    <div class="total-supply">
+                        <p>
+                            DiFi Supply:
+                            <span id="total-supply-display">Loading...</span>
+                            diFi
+                        </p>
+                    </div>
+                    <div class="user-balances">
+                        <p>My DiFi: <span id="user-difi-balance">0.00</span></p>
+                        <p>
+                            My Dpower: <span id="user-dpower-balance">0</span>
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <nav id="sideMenu" class="side-menu">
+                <a href="javascript:void(0)" class="close-btn" id="closeMenuBtn"
+                    >&times;</a
+                >
+                <a href="#" id="tasksLink">Tasks</a>
+                <a href="/kyc.html" id="kycLink">KYC</a>
+                <a href="/linkwallet.html" id="walletLink">Wallet</a>
+                <!-- NEW: Wallet Link Added -->
+                <a href="/whitepaper.html" id="whitepaperLink">White Paper</a>
+                <a href="#" id="leaderboardLink">Leaderboard</a>
+                <a href="#" id="contactLink">Contact</a>
+                <a
+                    href="admin-dashboard.html"
+                    id="adminDashboardLink"
+                    style="display: none; color: var(--accent-color)"
+                    >Admin Dashboard</a
+                >
+                <a href="#" id="logoutLink" style="color: var(--primary-color)"
+                    >Logout</a
+                >
+            </nav>
+
+            <main>
+                <section class="mining-section card">
+                    <h2>Mine diFi</h2>
+                    <p>You can mine 0.25 diFi every 12 hours.</p>
+                    <p>Last Mined: <span id="last-mined-time">Never</span></p>
+                    <p>
+                        Next Mine Available In:
+                        <span id="countdown">12:00:00</span>
+                    </p>
+                    <button id="mineButton" class="btn primary-btn" disabled>
+                        Mine 0.25 diFi
+                    </button>
+                </section>
+
+                <section class="referral-section card">
+                    <h2>Referral Program</h2>
+                    <p>Earn 2000 Dpower for each successful referral!</p>
+                    <p>
+                        Your Referral Code:
+                        <span id="referral-code" class="wallet-address"
+                            >Loading...</span
+                        >
+                    </p>
+                    <button class="btn secondary-btn" id="copyReferralCodeBtn">
+                        Copy Code
+                    </button>
+                </section>
+
+                <section class="dpower-conversion-section card">
+                    <h2>Dpower Conversion</h2>
+                    <p>Convert 250 Dpower = 0.25 diFi</p>
+                    <p>
+                        My Dpower:
+                        <span id="current-dpower-conversion-display">0</span>
+                    </p>
+                    <input
+                        type="number"
+                        id="dpower-to-convert"
+                        placeholder="Enter Dpower to convert"
+                        min="250"
+                        step="250"
+                    />
+                    <button
+                        id="convertDpowerBtn"
+                        class="btn primary-btn"
+                        disabled
+                    >
+                        Convert Dpower
+                    </button>
+                    <p>
+                        You will get: <span id="converted-difi">0.00</span> diFi
+                    </p>
+                </section>
+
+                <section class="premium-purchase-section card">
+                    <h2>Premium Dpower Purchase</h2>
+                    <p>
+                        Get 2000 Dpower for every $1 USD worth of crypto.
+                        Minimum purchase $20.
+                    </p>
+                    <input
+                        type="number"
+                        id="purchase-amount-usd"
+                        placeholder="Enter USD amount ($20 minimum)"
+                        min="5"
+                        step="5"
+                    />
+                    <button id="purchaseDpowerBtn" class="btn primary-btn">
+                        Generate Payment
+                    </button>
+                    <div id="payment-details" style="display: none">
+                        <p>Choose Crypto to Pay With:</p>
+                        <select id="crypto-choice" class="input">
+                            <option value="">Select Crypto</option>
+                            <option value="usdttrc20">
+                                Tether (USDT TRC20)
+                            </option>
+                            <option value="trx">Tron (TRX)</option>
+                        </select>
+                        <p>
+                            Send <span id="crypto-amount"></span> to this
+                            address:
+                        </p>
+                        <p class="wallet-address" id="payment-address">
+                            Loading...
+                        </p>
+                        <!-- QR Code Container -->
+                        <div
+                            id="qrcode"
+                            style="
+                                margin: 20px auto;
+                                width: 150px;
+                                height: 150px;
+                            "
+                        ></div>
+
+                        <button
+                            class="btn secondary-btn"
+                            id="copyPaymentAddressBtn"
+                        >
+                            Copy Address
+                        </button>
+                        <p class="small-text">
+                            Please send the exact crypto amount to the address.
+                            Your Dpower will be credited automatically upon
+                            payment confirmation on the blockchain. Do not close
+                            this page until payment is sent.
+                        </p>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Modals (whitepaperModal is effectively unused for direct link, but kept) -->
+            <div id="tasksModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeTasksModalBtn"
+                        >&times;</span
+                    >
+                    <h2>Complete Tasks to Earn DiFi</h2>
+                    <div class="task-list" id="tasks-list">
+                        <p>Loading tasks...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contactModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeContactModalBtn"
+                        >&times;</span
+                    >
+                    <h2>Contact Support</h2>
+                    <p>
+                        Click the button below to send a message to our support
+                        team.
+                    </p>
+                    <a
+                        href="mailto:help.dialfiairdrop@gmail.com"
+                        id="messageSupportBtn"
+                        class="btn primary-btn"
+                    >
+                        Message Support
+                    </a>
+                </div>
+            </div>
+
+            <div id="whitepaperModal" class="modal" style="display: none">
+                <div class="modal-content">
+                    <span class="close-button" id="closeWhitepaperModalBtn"
+                        >&times;</span
+                    >
+                    <h2>DialFi Whitepaper</h2>
+                    <p>
+                        Access our comprehensive Whitepaper to learn more about
+                        the DialFi project, its vision, technology, and
+                        tokenomics.
+                    </p>
+                    <a
+                        href="/whitepaper.html"
+                        target="_blank"
+                        class="btn primary-btn"
+                        >View Whitepaper (New Tab)</a
+                    >
+                    <p class="small-text">
+                        This modal and its internal link are now redundant if
+                        the main menu link goes directly to the page. You might
+                        remove this modal entirely if you only want direct
+                        navigation.
+                    </p>
+                </div>
+            </div>
+
+            <div id="leaderboardModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="closeLeaderboardModalBtn"
+                        >&times;</span
+                    >
+                    <h2>Leaderboard</h2>
+                    <h3>Top 10 DiFi Holders</h3>
+                    <ul id="difi-leaderboard-list">
+                        <li>Loading...</li>
+                    </ul>
+
+                    <h3>Top 10 Dpower Holders</h3>
+                    <ul id="dpower-leaderboard-list">
+                        <li>Loading...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <script src="/shared.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+            <script src="index.js" type="module"></script>
+        </div>
+    </body>
+    <footer>
+        <!-- Social Media Links -->
+        <div class="social-links">
+            <a
+                href="https://twitter.com/DialFiProtocol"
+                target="_blank"
+                aria-label="Twitter/X"
+            >
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a
+                href="https://www.youtube.com/channel/your_youtube_channel_id"
+                target="_blank"
+                aria-label="YouTube"
+            >
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a
+                href="https://discord.gg/your_discord_invite"
+                target="_blank"
+                aria-label="Discord"
+            >
+                <i class="fab fa-discord"></i>
+            </a>
+            <a
+                href="https://t.me/DialFiProtocol"
+                target="_blank"
+                aria-label="Telegram"
+            >
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+        </div>
+        <p style="text-align: center">
+            &copy; 2025 DialFi Protocol Project. All Rights Reserved.
+        </p>
+    </footer>
+</html>

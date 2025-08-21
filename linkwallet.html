@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DialFi - Wallet</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/style.css" />
+        <!-- You can put the specific styles for linkwallet.html directly in style.css or a new linkwallet.css -->
+        <style>
+            /* Specific styles for the wallet submission page */
+            .wallet-container {
+                max-width: 600px;
+                margin: 50px auto;
+                padding: 30px;
+                background-color: var(--card-background);
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                color: var(--text-color-primary);
+                text-align: center;
+            }
+
+            .wallet-container h1 {
+                color: var(--secondary-color);
+                margin-bottom: 25px;
+            }
+
+            .wallet-container p {
+                margin-bottom: 20px;
+                line-height: 1.5;
+            }
+
+            .wallet-container .input-group {
+                margin-bottom: 20px;
+            }
+
+            .wallet-container label {
+                display: block;
+                margin-bottom: 10px;
+                font-weight: 600;
+                color: var(--accent-color);
+            }
+
+            .wallet-container input[type="text"] {
+                width: calc(100% - 20px);
+                padding: 12px;
+                margin-bottom: 10px;
+                border: 1px solid #444;
+                border-radius: 8px;
+                background-color: var(--background-light);
+                color: var(--text-color-primary);
+                box-sizing: border-box;
+                font-size: 1em;
+            }
+
+            .wallet-container .btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 1.1em;
+                margin-top: 10px;
+            }
+
+            .wallet-container .current-address {
+                background-color: var(--background-light);
+                border: 1px solid #555;
+                padding: 15px;
+                border-radius: 8px;
+                word-wrap: break-word; /* Ensures long addresses wrap */
+                margin-top: 20px;
+                font-size: 0.95em;
+                color: var(--text-color-secondary);
+            }
+
+            .wallet-container .current-address strong {
+                color: var(--accent-color);
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 480px) {
+                .wallet-container {
+                    margin: 30px 15px;
+                    padding: 20px;
+                }
+
+                .wallet-container input[type="text"],
+                .wallet-container .btn {
+                    font-size: 0.95em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Message box for displaying errors or success messages -->
+        <div id="messageBox" style="display: none">
+            <p id="messageText"></p>
+        </div>
+
+        <div class="wallet-container">
+            <h1>Manage Your Solana Wallet</h1>
+            <p>
+                Submit your Solana address to receive future DiFi airdrops and
+                rewards. You can update your address at any time.
+            </p>
+
+            <div class="input-group">
+                <label for="solanaAddressInput">Your Solana Address:</label>
+                <input
+                    type="text"
+                    id="solanaAddressInput"
+                    placeholder="Enter your Solana wallet address (e.g., AkYh...Z2B4)"
+                    minlength="32"
+                    maxlength="44"
+                />
+                <div class="current-address">
+                    <strong>Current Address:</strong>
+                    <span id="currentSolanaAddress">Not set</span>
+                </div>
+            </div>
+
+            <button class="btn primary-btn" id="submitSolanaAddressBtn">
+                Submit / Update Address
+            </button>
+            <button class="btn secondary-btn" id="backToMainBtn">
+                Back to Main App
+            </button>
+        </div>
+
+        <script src="/shared.js"></script>
+        <script src="/linkwallet.js" type="module"></script>
+    </body>
+</html>

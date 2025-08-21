@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Email Verification</title>
+        <!-- Always use absolute paths for static assets from dynamic pages -->
+        <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-2xl font-bold mb-4 text-center">
+                Email Verification
+            </h1>
+            <div id="messageBox" class="message-box" style="display: none">
+                <p id="messageText"></p>
+            </div>
+            <p id="verificationStatus" class="text-center mt-4">
+                Verifying your email...
+            </p>
+            <div class="flex justify-center mt-6">
+                <!-- CRITICAL FIX: Changed href to absolute path /login.html -->
+                <a
+                    href="/login.html"
+                    class="btn primary-btn"
+                    id="loginRedirectBtn"
+                    style="display: none"
+                    >Go to Login</a
+                >
+            </div>
+        </div>
+        <!-- Always use absolute paths for script files from dynamic pages -->
+        <script src="/shared.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", async () => {
+                const urlPath = window.location.pathname;
+                const token = urlPath.split("/").pop(); // Extracts the token from /verify-email/:token
+
+                const verificationStatus =
+                    document.getElementById("verificationStatus");
+                const loginRedirectBtn =
+                    document.getElementById("loginRedirectBtn");
+
+                if (!token) {
+                    showMessage(
+                        "Error: No verification token found in URL.",
+                        true,
+                    );
+                    verificationStatus.textContent =
+                        "Verification failed: Invalid link.";
+                    return;
+                }
+
+                try {
+                    const response = await apiCall(
+                        `/auth/verify-email/${token}`,
+                        "GET",
+                        null,
+                        false,
+                    ); // No auth header needed
+                    showMessage(
+                        response.message || "Email verified successfully!",
+                        false,
+                    );
+                    verificationStatus.textContent =
+                        "Success! Your email has been verified.";
+                    loginRedirectBtn.style.display = "block"; // Show login button
+                } catch (error) {
+                    console.error("Email verification error:", error);
+                    const errorMessage =
+                        error.message ||
+                        "Verification failed. The link may be invalid or expired.";
+                    showMessage(errorMessage, true);
+                    verificationStatus.textContent = errorMessage;
+                }
+            });
+        </script>
+    </body>
+</html>

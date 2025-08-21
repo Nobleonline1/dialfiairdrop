@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DialFi - Login</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/style.css" />
+        <style>
+            /* Base styles for larger screens (PC) */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                background-color: var(--background-dark);
+                font-family:
+                    "Poppins", sans-serif; /* Ensure Poppins is applied */
+                color: var(--text-color-primary); /* Ensure text color is set */
+                margin: 0; /* Remove default body margin */
+            }
+
+            .login-container {
+                background-color: var(--card-background);
+                padding: 40px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                width: 100%;
+                max-width: 400px; /* Optimal width for login forms on desktop */
+                text-align: center;
+                box-sizing: border-box; /* Include padding in width calculation */
+                margin: 20px; /* Add some margin for smaller desktop viewports */
+            }
+
+            .login-container h2 {
+                color: var(--secondary-color);
+                margin-bottom: 20px; /* Adjusted for better spacing */
+                font-size: 2.2em; /* Slightly larger for prominence */
+                font-weight: 700;
+            }
+
+            .login-container h3 {
+                color: var(--text-color-primary);
+                margin-bottom: 25px; /* Spacing below subtitle */
+                font-size: 1.5em;
+                font-weight: 600;
+            }
+
+            .login-container label {
+                display: block;
+                text-align: left;
+                margin-bottom: 8px;
+                color: var(--text-color-primary);
+                font-weight: 600;
+                font-size: 0.95em;
+            }
+
+            .login-container input[type="text"],
+            .login-container input[type="email"],
+            .login-container input[type="password"] {
+                width: 100%; /* Make input fill container */
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid var(--border-color); /* Use a CSS variable if defined in style.css */
+                border-radius: 8px;
+                font-size: 1em;
+                background-color: var(--background-light);
+                color: var(--text-color-primary);
+                box-sizing: border-box; /* Crucial for consistent width */
+                outline: none; /* Remove default outline on focus */
+                transition:
+                    border-color 0.3s ease,
+                    box-shadow 0.3s ease;
+            }
+
+            .login-container input[type="text"]:focus,
+            .login-container input[type="email"]:focus,
+            .login-container input[type="password"]:focus {
+                border-color: var(--secondary-color); /* Highlight on focus */
+                box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5); /* Subtle glow */
+            }
+
+            .login-container .btn {
+                width: 100%;
+                padding: 15px;
+                margin-top: 15px; /* More space above button */
+                font-size: 1.1em;
+                font-weight: 700;
+                border-radius: 8px;
+                cursor: pointer;
+                transition:
+                    background-color 0.3s ease,
+                    transform 0.2s ease,
+                    box-shadow 0.3s ease;
+            }
+
+            .login-container .primary-btn {
+                background-color: var(
+                    --primary-color
+                ); /* Assuming --primary-color is a purple/blue */
+                color: #fff;
+                border: none;
+                box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+            }
+
+            .login-container .primary-btn:hover {
+                background-color: var(
+                    --accent-color
+                ); /* Darker purple on hover */
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(99, 102, 241, 0.6);
+            }
+
+            .login-container .small-text {
+                margin-top: 25px; /* More space above small text links */
+                font-size: 0.9em;
+                color: var(--text-color-secondary);
+                line-height: 1.5; /* Better readability */
+            }
+
+            .login-container .small-text a {
+                color: var(--secondary-color);
+                text-decoration: none;
+                font-weight: 600;
+                transition: color 0.3s ease;
+            }
+
+            .login-container .small-text a:hover {
+                color: var(--accent-color);
+                text-decoration: underline;
+            }
+
+            /* Media Queries for Responsiveness */
+
+            /* For tablets and smaller desktops (e.g., max-width 768px) */
+            @media (max-width: 768px) {
+                .login-container {
+                    padding: 30px; /* Slightly less padding */
+                    max-width: 360px; /* Adjust max-width */
+                    margin: 15px; /* Reduce margin */
+                }
+                .login-container h2 {
+                    font-size: 2em; /* Slightly smaller */
+                    margin-bottom: 15px;
+                }
+                .login-container h3 {
+                    font-size: 1.4em;
+                    margin-bottom: 20px;
+                }
+                .login-container input[type="text"],
+                .login-container input[type="email"],
+                .login-container input[type="password"] {
+                    padding: 12px;
+                    margin-bottom: 15px;
+                }
+                .login-container .btn {
+                    padding: 12px;
+                    font-size: 1em;
+                }
+                .login-container .small-text {
+                    margin-top: 20px;
+                    font-size: 0.85em;
+                }
+            }
+
+            /* For mobile devices (e.g., max-width 480px) */
+            @media (max-width: 480px) {
+                body {
+                    padding: 10px; /* Add some padding to body */
+                }
+                .login-container {
+                    padding: 25px;
+                    margin: 0 10px; /* Less horizontal margin, fill more width */
+                    border-radius: 12px; /* Slightly more rounded corners */
+                }
+                .login-container h2 {
+                    font-size: 1.8em;
+                    margin-bottom: 10px;
+                }
+                .login-container h3 {
+                    font-size: 1.3em;
+                    margin-bottom: 15px;
+                }
+                .login-container input[type="text"],
+                .login-container input[type="email"],
+                .login-container input[type="password"] {
+                    padding: 10px;
+                    margin-bottom: 15px;
+                    font-size: 0.95em;
+                }
+                .login-container .btn {
+                    padding: 12px;
+                    font-size: 1em;
+                }
+                .login-container .small-text {
+                    margin-top: 15px;
+                    font-size: 0.8em;
+                }
+                /* Ensure inline links wrap nicely */
+                .login-container .small-text span {
+                    display: block; /* Force links to new lines if needed */
+                }
+            }
+
+            /* Flexbox adjustment for horizontal links like "Forgot Password | Forgot Username" */
+            .links {
+                display: flex;
+                flex-wrap: wrap; /* Allow wrapping */
+                justify-content: center;
+                gap: 10px; /* Space between links */
+                margin-top: 25px;
+                margin-bottom: 15px;
+            }
+
+            .links a {
+                white-space: nowrap; /* Prevent breaking within a link */
+                color: var(--secondary-color);
+                text-decoration: none;
+                font-weight: 600;
+                transition: color 0.3s ease;
+            }
+
+            .links a:hover {
+                color: var(--accent-color);
+                text-decoration: underline;
+            }
+
+            .links .separator {
+                margin: 0 5px;
+                color: var(--text-color-secondary);
+            }
+
+            /* Smallest screens specific adjustments */
+            @media (max-width: 320px) {
+                .login-container {
+                    padding: 20px;
+                }
+                .login-container h2 {
+                    font-size: 1.6em;
+                }
+                .login-container h3 {
+                    font-size: 1.2em;
+                }
+                .login-container input[type="text"],
+                .login-container input[type="email"],
+                .login-container input[type="password"] {
+                    font-size: 0.9em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="message-box" id="messageBox" style="display: none">
+            <p id="messageText"></p>
+        </div>
+
+        <div class="login-container">
+            <div class="logo">
+                <img src="/difiimg1.jpg" alt="DiFi Token Logo" />
+                <h1>Welcome to DialFi</h1>
+            </div>
+            <h2>Login to your Account</h2>
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="usernameOrEmail">Email or Username</label>
+                    <input
+                        type="text"
+                        id="usernameOrEmail"
+                        placeholder="Your email or username"
+                        required
+                        autocomplete="username"
+                    />
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Your password"
+                        required
+                        autocomplete="current-password"
+                    />
+                </div>
+                <button type="submit" id="loginBtn" class="btn primary-btn">
+                    Login
+                </button>
+            </form>
+
+            <div class="links">
+                <a href="forgot-password.html">Forgot Password?</a>
+                <span class="separator">|</span>
+                <a href="forgot-username.html">Forgot Username?</a>
+            </div>
+            <p class="small-text">
+                Don't have an account? <a href="signup.html">Register here</a>
+            </p>
+        </div>
+
+        <script src="shared.js"></script>
+        <script src="login.js" type="module"></script>
+    </body>
+</html>

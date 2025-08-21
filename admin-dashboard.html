@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DialFi - Admin Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Specific styles for admin dashboard */
+      .admin-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: var(--background-dark);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        color: var(--text-color-primary);
+      }
+
+      .admin-container h1 {
+        color: var(--secondary-color);
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .admin-sections {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .admin-section {
+        background-color: var(--card-background);
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+
+      .admin-section h2 {
+        color: var(--accent-color);
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+      }
+
+      .admin-section label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .admin-section input[type="text"],
+      .admin-section input[type="email"],
+      .admin-section input[type="number"],
+      .admin-section select,
+      .admin-section textarea {
+        width: calc(100% - 20px);
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #444;
+        border-radius: 8px;
+        background-color: var(--background-light);
+        color: var(--text-color-primary);
+        box-sizing: border-box;
+      }
+
+      .admin-section textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .admin-section .btn {
+        width: auto;
+        padding: 10px 20px;
+        margin-top: 10px;
+      }
+
+      .user-list,
+      .task-list,
+      .referrer-list {
+        /* Added referrer-list */
+        margin-top: 20px;
+        max-height: 400px; /* Limit height for scrollability */
+        overflow-y: auto;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 10px;
+      }
+
+      .user-item,
+      .task-item-admin,
+      .referrer-item {
+        /* Added referrer-item */
+        background-color: var(--background-light);
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .user-item p,
+      .task-item-admin p,
+      .referrer-item p {
+        /* Added referrer-item */
+        margin: 0;
+        flex-basis: calc(50% - 10px); /* Two columns on larger screens */
+        word-break: break-all;
+      }
+      .user-item .actions,
+      .task-item-admin .actions,
+      .referrer-item .actions {
+        /* Added referrer-item */
+        flex-basis: 100%; /* Buttons stack on smaller screens */
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+        justify-content: flex-end;
+      }
+
+      .user-item .actions .btn,
+      .task-item-admin .actions .btn,
+      .referrer-item .actions .btn {
+        /* Added referrer-item */
+        margin-top: 0;
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+
+      .user-item p strong,
+      .task-item-admin p strong,
+      .referrer-item p strong {
+        /* Added referrer-item */
+        color: var(--secondary-color);
+      }
+
+      .user-item p span,
+      .task-item-admin p span,
+      .referrer-item p span {
+        /* Added referrer-item */
+        color: var(--text-color-secondary);
+      }
+
+      /* Responsive adjustments */
+      @media (min-width: 768px) {
+        .admin-sections {
+          grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+        }
+        .user-item p,
+        .task-item-admin p,
+        .referrer-item p {
+          /* Added referrer-item */
+          flex-basis: auto; /* Auto width on larger screens */
+        }
+        .user-item .actions,
+        .task-item-admin .actions,
+        .referrer-item .actions {
+          /* Added referrer-item */
+          flex-basis: auto;
+          margin-top: 0;
+        }
+      }
+
+      /* Styles for the new Edit User Modal */
+      #editUserModal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 2000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+        justify-content: center;
+        align-items: center;
+      }
+
+      #editUserModal .modal-content {
+        background-color: var(--card-background);
+        margin: auto;
+        padding: 30px;
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 500px;
+        box-shadow: var(--shadow);
+        position: relative;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      #editUserModal .modal-content h2 {
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      #editUserModal .modal-content label {
+        margin-bottom: 5px;
+        font-size: 0.95em;
+      }
+
+      #editUserModal .modal-content input[type="number"],
+      #editUserModal .modal-content input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      #editUserModal .modal-content .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 10px;
+      }
+
+      #editUserModal .modal-content .checkbox-container input[type="checkbox"] {
+        width: auto; /* Override full width for checkbox */
+        margin: 0;
+      }
+
+      #editUserModal .modal-content .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      #editUserModal .modal-content .modal-actions .btn {
+        margin-top: 0;
+      }
+
+      /* Message box styles (ensure these are present in your main style.css) */
+      #messageBox {
+        display: none;
+        padding: 15px 25px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3000;
+        text-align: center;
+        box-shadow: var(--shadow);
+        min-width: 300px;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      .message-success {
+        background-color: var(--primary-color);
+        border-color: #4a00b3;
+        color: var(--text-color-primary);
+      }
+
+      .message-error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Message box for displaying errors or success messages -->
+    <div id="messageBox" style="display: none">
+      <p id="messageText"></p>
+    </div>
+
+    <div class="admin-container">
+      <h1>Admin Dashboard</h1>
+
+      <!-- New: Dashboard Overview Section -->
+      <div class="admin-section">
+        <h2>Dashboard Overview</h2>
+        <p>
+          Total Registered Users:
+          <strong id="totalUsersDisplay">Loading...</strong>
+        </p>
+        <!-- More overview stats can be added here -->
+      </div>
+
+      <div class="admin-sections">
+        <!-- User Management Section -->
+        <div class="admin-section">
+          <h2>User Management</h2>
+          <input
+            type="text"
+            id="searchUser"
+            placeholder="Search user by username or email"
+          />
+          <button class="btn primary-btn" id="searchUserBtn">
+            Search User
+          </button>
+          <div id="userSearchResults" class="user-list">
+            <!-- Search results or all users will be listed here -->
+            <p>Search for users or load all users.</p>
+          </div>
+          <button class="btn secondary-btn" id="loadAllUsersBtn">
+            Load All Users
+          </button>
+        </div>
+
+        <!-- Task Management Section -->
+        <div class="admin-section">
+          <h2>Task Management</h2>
+          <h3>Add New Task</h3>
+          <label for="taskName">Task Name:</label>
+          <input
+            type="text"
+            id="taskName"
+            placeholder="e.g., Follow us on Twitter"
+          />
+          <label for="taskPlatform">Platform:</label>
+          <input
+            type="text"
+            id="taskPlatform"
+            placeholder="e.g., Twitter, YouTube, Instagram"
+          />
+          <label for="taskLink">Link:</label>
+          <input
+            type="text"
+            id="taskLink"
+            placeholder="e.g., https://twitter.com/yourhandle"
+          />
+          <label for="taskReward">Reward (DiFi):</label>
+          <input
+            type="number"
+            id="taskReward"
+            min="0"
+            value="0.25"
+            step="0.01"
+          />
+          <button class="btn primary-btn" id="addTaskBtn">Add Task</button>
+
+          <h3>Existing Tasks</h3>
+          <div id="existingTasksList" class="task-list">
+            <!-- Existing tasks will be listed here -->
+            <p>Loading tasks...</p>
+          </div>
+        </div>
+
+        <!-- New: Top Referrers Section -->
+        <div class="admin-section">
+          <h2>Top Referrers</h2>
+          <div id="topReferrersList" class="referrer-list">
+            <p>Loading top referrers...</p>
+          </div>
+        </div>
+      </div>
+      <button
+        class="btn secondary-btn"
+        id="backToMainBtn"
+        style="margin-top: 30px"
+      >
+        Back to Main App
+      </button>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="closeEditUserModalBtn">&times;</span>
+        <h2>Edit User Details</h2>
+        <input type="hidden" id="editUserId" />
+        <label for="editUsername">Username:</label>
+        <input type="text" id="editUsername" readonly />
+        <label for="editEmail">Email:</label>
+        <input type="text" id="editEmail" readonly />
+        <label for="editSolanaAddress">Solana Address:</label>
+        <!-- NEW: Solana Address Label -->
+        <input
+          type="text"
+          id="editSolanaAddress"
+          placeholder="User's Solana Address"
+        />
+        <!-- NEW: Solana Address Input -->
+        <label for="editDiFiBalance">DiFi Balance:</label>
+        <input type="number" id="editDiFiBalance" step="0.01" />
+        <label for="editDpowerBalance">Dpower Balance:</label>
+        <input type="number" id="editDpowerBalance" step="1" />
+        <div class="checkbox-container">
+          <input type="checkbox" id="editIsAdmin" />
+          <label for="editIsAdmin">Is Admin</label>
+        </div>
+        <div class="checkbox-container">
+          <input type="checkbox" id="editIsBlocked" />
+          <label for="editIsBlocked">Is Blocked</label>
+        </div>
+        <div class="modal-actions">
+          <button class="btn primary-btn" id="saveUserChangesBtn">
+            Save Changes
+          </button>
+          <button class="btn secondary-btn" id="cancelEditUserBtn">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="admin-dashboard.js"></script>
+  </body>
+</html>
