@@ -1,30 +1,24 @@
 // shared.js
 // This script provides global utility functions used across the frontend.
 
-// Get the base URL from the current window's location
-// This helps ensure API calls are made to the correct backend host, whether local or on Replit.
-const getBaseUrl = () => {
-    // The Replit URL ends with .replit.dev.
-    // The backend is served from the same host, so we don't need the path.
-    const url = window.location.origin;
-    if (url.includes(".replit.dev")) {
-        return url;
-    }
-    // For local development
-    return "http://localhost:5000";
-};
+// IMPORTANT: When deploying to Render, your frontend (Static Site) and backend (Web Service)
+// are on different URLs. We need to explicitly set the backend's URL here.
+const BACKEND_RENDER_URL = "https://dialfi-backend.onrender.com"; // <-- REPLACE WITH YOUR ACTUAL RENDER BACKEND URL
 
 // Global API call utility function
 // Handles fetching data, authentication headers, and basic error handling
 // authRequiredParam: Boolean to indicate if a JWT token should be sent.
-//                    Defaults to true, but overridden to false for publicEndpoints.
+//                   Defaults to true, but overridden to false for publicEndpoints.
 const apiCall = async (
     endpoint,
     method = "GET",
     body = null,
     authRequiredParam = true, // Default to true, assuming most calls need auth
 ) => {
-    const url = `${getBaseUrl()}/api${endpoint}`;
+    // Construct the URL using the explicit backend URL for Render deployments.
+    // This ensures frontend communicates with the correct backend service.
+    const url = `${BACKEND_RENDER_URL}/api${endpoint}`; // <-- UPDATED THIS LINE
+
     const headers = {
         "Content-Type": "application/json",
     };
@@ -40,7 +34,7 @@ const apiCall = async (
         "/auth/forgot-password",
         "/auth/reset-password",
         "/auth/verify-email",
-        "/auth/resend-verification", // Added resend verification if it's public
+        "/auth/resend-verification",
         "/airdrop/total-supply",
         "/airdrop/leaderboard/difi",
         "/airdrop/leaderboard/dpower",
@@ -56,8 +50,10 @@ const apiCall = async (
     if (isAuthNeeded) {
         const token = localStorage.getItem("authToken");
         if (!token) {
-            // This is the error currently being thrown on login
-            throw new Error("Authentication required, but no token found.");
+            // If token is required but not found, redirect to login
+            showMessage("Authentication required. Please log in.", true);
+            setTimeout(() => (window.location.href = "login.html"), 1500);
+            throw new Error("No authentication token found.");
         }
         headers["Authorization"] = `Bearer ${token}`;
     }
