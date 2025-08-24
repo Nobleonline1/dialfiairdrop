@@ -74,7 +74,8 @@ exports.registerUser = async (req, res) => {
         const verificationToken = user.getEmailVerificationToken();
         await user.save({ validateBeforeSave: false }); // Save user with verification token
 
-        const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
+        // UPDATED: Use .html and query parameter for static site
+        const verificationUrl = `${process.env.FRONTEND_URL}/verify-email.html?token=${verificationToken}`;
 
         const emailMessage = `
             <h1>Welcome to DialFi!</h1>
@@ -271,7 +272,8 @@ exports.resendVerificationEmail = async (req, res) => {
         const verificationToken = user.getEmailVerificationToken();
         await user.save({ validateBeforeSave: false }); // Save user with new token
 
-        const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
+        // UPDATED: Use .html and query parameter for static site
+        const verificationUrl = `${process.env.FRONTEND_URL}/verify-email.html?token=${verificationToken}`;
 
         const emailMessage = `
             <h1>Resend Verification for DialFi!</h1>
@@ -369,7 +371,7 @@ exports.updateSolanaAddress = async (req, res) => {
     } catch (error) {
         console.error("Error updating Solana address:", error);
         // Handle validation errors specifically
-        if (error.name === "ValidationError") {
+        if (error.name === 'ValidationError') {
             return res.status(400).json({
                 success: false,
                 message: error.message || "Invalid Solana address format.",
@@ -379,8 +381,7 @@ exports.updateSolanaAddress = async (req, res) => {
         if (error.code === 11000) {
             return res.status(400).json({
                 success: false,
-                message:
-                    "This Solana address is already linked to another account.",
+                message: "This Solana address is already linked to another account.",
             });
         }
         res.status(500).json({
@@ -409,7 +410,8 @@ exports.forgotPassword = async (req, res) => {
         const resetToken = user.getResetPasswordToken();
         await user.save({ validateBeforeSave: false });
 
-        const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+        // UPDATED: Use .html and query parameter for static site
+        const resetUrl = `${process.env.FRONTEND_URL}/reset-password.html?token=${resetToken}`;
 
         const message = `
             <h1>You have requested a password reset</h1>
